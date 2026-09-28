@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>TicketDesk | Book Ticket</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f7f3ff;
+            color: #291044;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            height: 78px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 7%;
+
+            background: white;
+
+            border-bottom: 1px solid #e7dcf5;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 11px;
+
+            background:
+                    linear-gradient(
+                            135deg,
+                            #7c3aed,
+                            #a855f7
+                    );
+
+            color: white;
+
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .logo-text {
+            font-size: 23px;
+            font-weight: 800;
+
+            color: #32145f;
+        }
+
+        .logo-text span {
+            color: #8b5cf6;
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #6f6380;
+            font-weight: 600;
+        }
+
+        nav a:hover {
+            color: #7c3aed;
+        }
+
+        /* ================= MAIN ================= */
+
+        .page {
+            min-height: calc(100vh - 78px);
+
+            padding: 60px 20px;
+
+            display: flex;
+            justify-content: center;
+
+            background:
+                    radial-gradient(
+                            circle at top left,
+                            rgba(124, 58, 237, 0.12),
+                            transparent 35%
+                    ),
+                    #f7f3ff;
+        }
+
+        .booking-container {
+            width: 100%;
+            max-width: 620px;
+        }
+
+        .booking-container h1 {
+            text-align: center;
+
+            font-size: 42px;
+
+            color: #32145f;
+
+            margin-bottom: 10px;
+        }
+
+        .booking-container h1 span {
+            color: #7c3aed;
+        }
+
+        .subtitle {
+            text-align: center;
+
+            color: #766a84;
+
+            margin-bottom: 30px;
+
+            font-size: 16px;
+        }
+
+        /* ================= CARD ================= */
+
+        .booking-card {
+            background: white;
+
+            padding: 35px;
+
+            border-radius: 22px;
+
+            border: 1px solid #e4d8f4;
+
+            box-shadow:
+                    0 15px 40px
+                    rgba(60, 25, 100, 0.10);
+        }
+
+        /* ================= SHOW INFO ================= */
+
+        .show-info {
+            padding: 22px;
+
+            border-radius: 15px;
+
+            background: #f3edff;
+
+            border: 1px solid #e4d8f4;
+
+            margin-bottom: 28px;
+        }
+
+        .show-info h2 {
+            color: #6d28d9;
+
+            font-size: 23px;
+
+            margin-bottom: 15px;
+        }
+
+        .show-info p {
+            margin: 8px 0;
+
+            color: #62566e;
+
+            font-size: 14px;
+        }
+
+        .show-info strong {
+            color: #32145f;
+        }
+
+        /* ================= FORM ================= */
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #32145f;
+
+            font-weight: 700;
+
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+
+            height: 50px;
+
+            padding: 0 15px;
+
+            border: 1px solid #d9cbea;
+
+            border-radius: 10px;
+
+            background: #ffffff;
+
+            color: #32145f;
+
+            font-size: 15px;
+
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #7c3aed;
+
+            box-shadow:
+                    0 0 0 3px
+                    rgba(124, 58, 237, 0.10);
+        }
+
+        /* ================= BUTTON ================= */
+
+        .confirm-button {
+            width: 100%;
+
+            height: 52px;
+
+            border: none;
+
+            border-radius: 11px;
+
+            background:
+                    linear-gradient(
+                            135deg,
+                            #7c3aed,
+                            #6d28d9
+                    );
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .confirm-button:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                    0 8px 20px
+                    rgba(109, 40, 217, 0.25);
+        }
+
+        .confirm-button:disabled {
+            opacity: 0.6;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+        /* ================= MESSAGE ================= */
+
+        .message {
+            margin-top: 18px;
+
+            padding: 12px;
+
+            border-radius: 9px;
+
+            text-align: center;
+
+            font-size: 14px;
+
+            font-weight: 600;
+        }
+
+        /* ================= BACK ================= */
+
+        .back-link {
+            display: block;
+
+            margin-top: 20px;
+
+            text-align: center;
+
+            color: #6d28d9;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                padding: 0 5%;
+            }
+
+            nav {
+                gap: 15px;
+            }
+
+            nav a {
+                font-size: 13px;
+            }
+
+            .booking-card {
+                padding: 25px;
+            }
+
+            .booking-container h1 {
+                font-size: 34px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<header class="navbar">
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            T
+        </div>
+
+        <div class="logo-text">
+            Ticket<span>Desk</span>
+        </div>
+
+    </div>
+
+
+    <nav>
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="shows.html">
+            Shows
+        </a>
+
+        <a href="bookings.html">
+            My Bookings
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="page">
+
+
+    <div class="booking-container">
+
+
+        <h1>
+            Book Your <span>Ticket</span>
+        </h1>
+
+
+        <p class="subtitle">
+            Reserve your seat for the selected show.
+        </p>
+
+
+
+        <div class="booking-card">
+
+
+            <!-- SHOW DETAILS -->
+
+            <div class="show-info">
+
+                <h2 id="showTitle">
+                    Loading show...
+                </h2>
+
+
+                <p>
+
+                    Show ID:
+
+                    <strong id="showId">
+                        -
+                    </strong>
+
+                </p>
+
+
+                <p>
+
+                    Show Time:
+
+                    <strong id="showTime">
+                        -
+                    </strong>
+
+                </p>
+
+
+                <p>
+
+                    Total Seats:
+
+                    <strong id="totalSeats">
+                        -
+                    </strong>
+
+                </p>
+
+            </div>
+
+
+
+            <!-- STUDENT ID -->
+
+            <div class="form-group">
+
+                <label for="studentId">
+
+                    Student ID
+
+                </label>
+
+
+                <input
+                        type="number"
+                        id="studentId"
+                        placeholder="Enter your student ID"
+                >
+
+            </div>
+
+
+
+            <!-- SEAT NUMBER -->
+
+            <div class="form-group">
+
+                <label for="seatNumber">
+
+                    Seat Number
+
+                </label>
+
+
+                <input
+                        type="text"
+                        id="seatNumber"
+                        placeholder="Example: A10"
+                >
+
+            </div>
+
+
+
+            <!-- CONFIRM -->
+
+            <button
+                    id="confirmButton"
+                    class="confirm-button"
+                    onclick="confirmBooking()">
+
+                Confirm Booking
+
+            </button>
+
+
+
+            <!-- MESSAGE -->
+
+            <div
+                    id="bookingMessage"
+                    class="message">
+            </div>
+
+
+
+            <a
+                    href="shows.html"
+                    class="back-link">
+
+                ← Back to Shows
+
+            </a>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+
+<script>
+
+    /* =========================================
+       GET SHOW ID FROM URL
+    ========================================= */
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    const showId =
+        params.get("showId");
+
+
+    /* =========================================
+       CHECK SHOW ID
+    ========================================= */
+
+    if (!showId) {
+
+        document.getElementById(
+            "showTitle"
+        ).textContent =
+            "No show selected";
+
+    } else {
+
+        document.getElementById(
+            "showId"
+        ).textContent =
+            showId;
+
+        loadSelectedShow();
+
+    }
+
+
+    /* =========================================
+       LOAD SELECTED SHOW
+    ========================================= */
+
+    async function loadSelectedShow() {
+
+        try {
+
+            const response =
+                await fetch(
+                    `/api/shows/${showId}`
+                );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Show not found"
+                );
+
+            }
+
+
+            const show =
+                await response.json();
+
+
+            document.getElementById(
+                "showTitle"
+            ).textContent =
+                show.title;
+
+
+            document.getElementById(
+                "showTime"
+            ).textContent =
+                formatDateTime(show.time);
+
+
+            document.getElementById(
+                "totalSeats"
+            ).textContent =
+                show.totalSeats;
+
+
+        } catch (error) {
+
+            console.error(error);
+
+
+            document.getElementById(
+                "showTitle"
+            ).textContent =
+                "Unable to load show";
+
+        }
+
+    }
+
+
+    /* =========================================
+       CONFIRM BOOKING
+    ========================================= */
+
+    async function confirmBooking() {
+
+        const studentId =
+            document.getElementById(
+                "studentId"
+            ).value.trim();
+
+
+        const seatNumber =
+            document.getElementById(
+                "seatNumber"
+            ).value.trim();
+
+
+        const message =
+            document.getElementById(
+                "bookingMessage"
+            );
+
+
+        const button =
+            document.getElementById(
+                "confirmButton"
+            );
+
+
+        /* VALIDATION */
+
+        if (!studentId) {
+
+            showMessage(
+                "Please enter your Student ID.",
+                false
+            );
+
+            return;
+
+        }
+
+
+        if (!seatNumber) {
+
+            showMessage(
+                "Please enter a seat number.",
+                false
+            );
+
+            return;
+
+        }
+
+
+        if (!showId) {
+
+            showMessage(
+                "No show selected.",
+                false
+            );
+
+            return;
+
+        }
+
+
+        /* REQUEST DATA */
+
+        const bookingData = {
+
+            studentId:
+                Number(studentId),
+
+            showId:
+                Number(showId),
+
+            seatNumber:
+            seatNumber
+
+        };
+
+
+        try {
+
+            button.disabled = true;
+
+            button.textContent =
+                "Booking...";
+
+
+            const response =
+                await fetch(
+                    "/api/bookings",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify(
+                                bookingData
+                            )
+                    }
+                );
+
+
+            const text =
+                await response.text();
+
+
+            let data = null;
+
+
+            if (text) {
+
+                try {
+
+                    data =
+                        JSON.parse(text);
+
+                } catch {
+
+                    data =
+                        text;
+
+                }
+
+            }
+
+
+            if (!response.ok) {
+
+                let errorMessage =
+                    "Booking failed.";
+
+
+                if (
+                    data &&
+                    typeof data === "object" &&
+                    data.message
+                ) {
+
+                    errorMessage =
+                        data.message;
+
+                } else if (
+                    typeof data === "string" &&
+                    data.length > 0
+                ) {
+
+                    errorMessage =
+                        data;
+
+                }
+
+
+                throw new Error(
+                    errorMessage
+                );
+
+            }
+
+
+            showMessage(
+                "✓ Ticket booked successfully!",
+                true
+            );
+
+
+            button.textContent =
+                "Booking Confirmed";
+
+
+            /* GO TO MY BOOKINGS */
+
+            setTimeout(
+                function () {
+
+                    window.location.href =
+                        "bookings.html";
+
+                },
+                1200
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Booking error:",
+                error
+            );
+
+
+            showMessage(
+                error.message,
+                false
+            );
+
+
+            button.disabled =
+                false;
+
+
+            button.textContent =
+                "Confirm Booking";
+
+        }
+
+    }
+
+
+    /* =========================================
+       MESSAGE
+    ========================================= */
+
+    function showMessage(
+        text,
+        success
+    ) {
+
+        const message =
+            document.getElementById(
+                "bookingMessage"
+            );
+
+
+        message.textContent =
+            text;
+
+
+        message.style.background =
+            success
+                ? "#ecfdf5"
+                : "#fef2f2";
+
+
+        message.style.color =
+            success
+                ? "#15803d"
+                : "#dc2626";
+
+    }
+
+
+    /* =========================================
+       DATE FORMAT
+    ========================================= */
+
+    function formatDateTime(
+        dateTime
+    ) {
+
+        if (!dateTime) {
+
+            return "Not specified";
+
+        }
+
+
+        const date =
+            new Date(dateTime);
+
+
+        if (
+            isNaN(
+                date.getTime()
+            )
+        ) {
+
+            return dateTime;
+
+        }
+
+
+        return date.toLocaleString(
+            "en-IN",
+            {
+                dateStyle: "medium",
+                timeStyle: "short"
+            }
+        );
+
+    }
+
+</script>
+
+
+</body>
+
+</html>

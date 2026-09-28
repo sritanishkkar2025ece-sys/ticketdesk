@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>TicketDesk | Shows</title>
+
+    <!-- Main website CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Shows page CSS -->
+    <link rel="stylesheet" href="shows.css">
+
+</head>
+
+<body>
+
+
+<!-- =========================================
+     NAVBAR
+========================================= -->
+
+<header class="navbar">
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            T
+        </div>
+
+        <div class="logo-text">
+            Ticket<span>Desk</span>
+        </div>
+
+    </div>
+
+
+    <nav>
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="shows.html" class="active">
+            Shows
+        </a>
+
+        <a href="bookings.html">
+            My Bookings
+        </a>
+
+    </nav>
+
+
+    <button
+            class="nav-button"
+            onclick="window.location.href='shows.html'">
+
+        Explore Shows
+
+    </button>
+
+</header>
+
+
+
+<!-- =========================================
+     SHOWS PAGE
+========================================= -->
+
+<main class="shows-page">
+
+
+    <!-- =====================================
+         PAGE HEADER
+    ====================================== -->
+
+    <section class="shows-header">
+
+
+        <!-- LEFT SIDE -->
+
+        <div class="shows-heading">
+
+            <p class="section-label">
+                TICKETDESK EVENTS
+            </p>
+
+
+            <h1>
+
+                Find your next
+                <span>experience.</span>
+
+            </h1>
+
+
+            <p class="description">
+
+                Explore available shows and reserve
+                your favorite seat.
+
+            </p>
+
+        </div>
+
+
+
+        <!-- RIGHT SIDE - FILTER -->
+
+        <div class="filter-box">
+
+            <label for="showDate">
+
+                Search shows by date
+
+            </label>
+
+
+            <div class="date-filter">
+
+                <input
+                        type="date"
+                        id="showDate"
+                >
+
+
+                <button
+                        type="button"
+                        class="filter-button"
+                        onclick="filterShows()">
+
+                    Search
+
+                </button>
+
+
+                <button
+                        type="button"
+                        class="clear-button"
+                        onclick="loadShows()">
+
+                    All Shows
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================
+         SHOW STATUS
+    ====================================== -->
+
+    <div
+            id="showMessage"
+            class="show-message">
+
+        Loading shows...
+
+    </div>
+
+
+
+    <!-- =====================================
+         SHOW CARDS
+    ====================================== -->
+
+    <section
+            id="showGrid"
+            class="show-grid">
+
+        <!-- JavaScript will insert show cards here -->
+
+    </section>
+
+
+</main>
+
+
+
+<!-- =========================================
+     FOOTER
+========================================= -->
+
+<footer>
+
+
+    <div class="footer-logo">
+
+        <div class="logo-icon">
+            T
+        </div>
+
+        <span>
+            Ticket<span>Desk</span>
+        </span>
+
+    </div>
+
+
+    <p>
+        Smart and simple ticket booking platform.
+    </p>
+
+
+    <div class="footer-bottom">
+
+        © 2026 TicketDesk. All rights reserved.
+
+    </div>
+
+</footer>
+
+
+
+<!-- =========================================
+     JAVASCRIPT
+========================================= -->
+
+<script src="script.js"></script>
+
+
+</body>
+
+</html>

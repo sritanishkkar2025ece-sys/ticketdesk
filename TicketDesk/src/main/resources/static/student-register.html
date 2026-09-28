@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>TicketDesk | Student Registration</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f7f3ff;
+            color: #291044;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            height: 78px;
+            padding: 0 7%;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            background: white;
+
+            border-bottom: 1px solid #e5d9f5;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 11px;
+
+            background:
+                    linear-gradient(
+                            135deg,
+                            #7c3aed,
+                            #a855f7
+                    );
+
+            color: white;
+
+            font-size: 21px;
+            font-weight: 800;
+        }
+
+        .logo-text {
+            font-size: 23px;
+            font-weight: 800;
+            color: #32145f;
+        }
+
+        .logo-text span {
+            color: #8b5cf6;
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #6f6380;
+            font-weight: 600;
+        }
+
+        nav a:hover {
+            color: #7c3aed;
+        }
+
+        nav a.active {
+            color: #7c3aed;
+        }
+
+        /* =========================
+           PAGE
+        ========================= */
+
+        .page {
+            min-height: calc(100vh - 78px);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 50px 20px;
+
+            background:
+                    radial-gradient(
+                            circle at top left,
+                            rgba(124, 58, 237, 0.14),
+                            transparent 35%
+                    ),
+                    #f7f3ff;
+        }
+
+        .register-container {
+            width: 100%;
+            max-width: 540px;
+        }
+
+        /* =========================
+           HEADING
+        ========================= */
+
+        .heading {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .heading .label {
+            color: #7c3aed;
+
+            font-size: 13px;
+            font-weight: 800;
+
+            letter-spacing: 2px;
+
+            margin-bottom: 10px;
+        }
+
+        .heading h1 {
+            font-size: 38px;
+            color: #32145f;
+
+            margin-bottom: 10px;
+        }
+
+        .heading h1 span {
+            color: #7c3aed;
+        }
+
+        .heading p {
+            color: #766a84;
+        }
+
+        /* =========================
+           CARD
+        ========================= */
+
+        .register-card {
+            background: white;
+
+            padding: 35px;
+
+            border-radius: 22px;
+
+            border: 1px solid #e3d7f3;
+
+            box-shadow:
+                    0 18px 45px
+                    rgba(60, 25, 100, 0.10);
+        }
+
+        /* =========================
+           FORM
+        ========================= */
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #32145f;
+
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        input {
+            width: 100%;
+
+            height: 52px;
+
+            padding: 0 15px;
+
+            border: 1px solid #d8cbe9;
+
+            border-radius: 10px;
+
+            font-size: 15px;
+
+            outline: none;
+
+            color: #32145f;
+
+            background: white;
+        }
+
+        input:focus {
+            border-color: #7c3aed;
+
+            box-shadow:
+                    0 0 0 3px
+                    rgba(124, 58, 237, 0.10);
+        }
+
+        /* =========================
+           BUTTON
+        ========================= */
+
+        .register-button {
+            width: 100%;
+
+            height: 52px;
+
+            border: none;
+
+            border-radius: 11px;
+
+            background:
+                    linear-gradient(
+                            135deg,
+                            #7c3aed,
+                            #6d28d9
+                    );
+
+            color: white;
+
+            font-size: 16px;
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .register-button:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                    0 8px 20px
+                    rgba(109, 40, 217, 0.25);
+        }
+
+        .register-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+        /* =========================
+           MESSAGE
+        ========================= */
+
+        .message {
+            display: none;
+
+            margin-top: 20px;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            text-align: center;
+
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .success {
+            display: block;
+
+            background: #ecfdf5;
+
+            color: #15803d;
+        }
+
+        .error {
+            display: block;
+
+            background: #fef2f2;
+
+            color: #dc2626;
+        }
+
+        .student-id {
+            margin-top: 8px;
+
+            font-size: 19px;
+
+            font-weight: 800;
+        }
+
+        /* =========================
+           LINKS
+        ========================= */
+
+        .links {
+            margin-top: 22px;
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 20px;
+        }
+
+        .links a {
+            color: #6d28d9;
+
+            text-decoration: none;
+
+            font-weight: 600;
+
+            font-size: 14px;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                padding: 0 5%;
+            }
+
+            nav {
+                gap: 14px;
+            }
+
+            nav a {
+                font-size: 13px;
+            }
+
+            .register-card {
+                padding: 25px;
+            }
+
+            .heading h1 {
+                font-size: 32px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<header class="navbar">
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            T
+        </div>
+
+        <div class="logo-text">
+            Ticket<span>Desk</span>
+        </div>
+
+    </div>
+
+
+    <nav>
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="shows.html">
+            Shows
+        </a>
+
+        <a href="student-register.html"
+           class="active">
+            Register
+        </a>
+
+        <a href="bookings.html">
+            My Bookings
+        </a>
+
+    </nav>
+
+</header>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="page">
+
+    <div class="register-container">
+
+
+        <div class="heading">
+
+            <div class="label">
+                TICKETDESK
+            </div>
+
+            <h1>
+                Create Your
+                <span>Account</span>
+            </h1>
+
+            <p>
+                Register as a student to book your tickets.
+            </p>
+
+        </div>
+
+
+        <div class="register-card">
+
+
+            <!-- NAME -->
+
+            <div class="form-group">
+
+                <label for="studentName">
+                    Student Name
+                </label>
+
+                <input
+                        type="text"
+                        id="studentName"
+                        placeholder="Enter your full name"
+                >
+
+            </div>
+
+
+            <!-- EMAIL -->
+
+            <div class="form-group">
+
+                <label for="studentEmail">
+                    Email Address
+                </label>
+
+                <input
+                        type="email"
+                        id="studentEmail"
+                        placeholder="Enter your email address"
+                >
+
+            </div>
+
+
+            <!-- DEPARTMENT -->
+
+            <div class="form-group">
+
+                <label for="studentDepartment">
+                    Department
+                </label>
+
+                <input
+                        type="text"
+                        id="studentDepartment"
+                        placeholder="Example: ECE"
+                >
+
+            </div>
+
+
+            <!-- BUTTON -->
+
+            <button
+                    id="registerButton"
+                    class="register-button"
+                    onclick="registerStudent()">
+
+                Create Student Account
+
+            </button>
+
+
+            <!-- MESSAGE -->
+
+            <div
+                    id="registerMessage"
+                    class="message">
+            </div>
+
+
+            <!-- LINKS -->
+
+            <div class="links">
+
+                <a href="index.html">
+                    ← Home
+                </a>
+
+                <a href="shows.html">
+                    Browse Shows
+                </a>
+
+                <a href="bookings.html">
+                    My Bookings
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<script>
+
+    // =========================================
+    // REGISTER STUDENT
+    // =========================================
+
+    async function registerStudent() {
+
+        const name =
+            document.getElementById(
+                "studentName"
+            ).value.trim();
+
+        const email =
+            document.getElementById(
+                "studentEmail"
+            ).value.trim();
+
+        const department =
+            document.getElementById(
+                "studentDepartment"
+            ).value.trim();
+
+        const button =
+            document.getElementById(
+                "registerButton"
+            );
+
+        const message =
+            document.getElementById(
+                "registerMessage"
+            );
+
+
+        // =========================================
+        // VALIDATION
+        // =========================================
+
+        if (!name) {
+
+            showMessage(
+                "Please enter your name.",
+                false
+            );
+
+            return;
+        }
+
+
+        if (!email) {
+
+            showMessage(
+                "Please enter your email.",
+                false
+            );
+
+            return;
+        }
+
+
+        const emailPattern =
+            /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+        if (!emailPattern.test(email)) {
+
+            showMessage(
+                "Please enter a valid email address.",
+                false
+            );
+
+            return;
+        }
+
+
+        if (!department) {
+
+            showMessage(
+                "Please enter your department.",
+                false
+            );
+
+            return;
+        }
+
+
+        // =========================================
+        // STUDENT DATA
+        // =========================================
+
+        const studentData = {
+
+            name: name,
+
+            email: email,
+
+            department: department
+
+        };
+
+
+        try {
+
+            button.disabled = true;
+
+            button.textContent =
+                "Creating Account...";
+
+
+            // =========================================
+            // HTTP POST REQUEST
+            // =========================================
+
+            const response =
+                await fetch(
+                    "/api/students",
+                    {
+
+                        method: "POST",
+
+                        headers: {
+
+                            "Content-Type":
+                                "application/json"
+
+                        },
+
+                        body:
+                            JSON.stringify(
+                                studentData
+                            )
+
+                    }
+                );
+
+
+            const text =
+                await response.text();
+
+
+            let data = null;
+
+
+            if (text) {
+
+                try {
+
+                    data =
+                        JSON.parse(text);
+
+                } catch {
+
+                    data = text;
+
+                }
+
+            }
+
+
+            // =========================================
+            // ERROR
+            // =========================================
+
+            if (!response.ok) {
+
+                let errorMessage =
+                    "Unable to create student.";
+
+
+                if (
+                    data &&
+                    typeof data === "object" &&
+                    data.message
+                ) {
+
+                    errorMessage =
+                        data.message;
+
+                } else if (
+                    typeof data === "string" &&
+                    data.length > 0
+                ) {
+
+                    errorMessage =
+                        data;
+
+                }
+
+
+                throw new Error(
+                    errorMessage
+                );
+
+            }
+
+
+            // =========================================
+            // SUCCESS
+            // =========================================
+
+            const studentId =
+                data.id;
+
+
+            showMessage(
+                `
+                ✓ Student registered successfully!
+
+                <div class="student-id">
+                    Student ID: ${studentId}
+                </div>
+                `,
+                true
+            );
+
+
+            // Save student ID
+            // for booking later
+
+            localStorage.setItem(
+                "studentId",
+                studentId
+            );
+
+
+            button.textContent =
+                "Registration Successful";
+
+
+        } catch (error) {
+
+            console.error(
+                "Registration error:",
+                error
+            );
+
+
+            showMessage(
+                error.message,
+                false
+            );
+
+
+            button.disabled = false;
+
+            button.textContent =
+                "Create Student Account";
+
+        }
+
+    }
+
+
+    // =========================================
+    // SHOW MESSAGE
+    // =========================================
+
+    function showMessage(
+        text,
+        success
+    ) {
+
+        const message =
+            document.getElementById(
+                "registerMessage"
+            );
+
+
+        message.innerHTML =
+            text;
+
+
+        message.className =
+            success
+                ? "message success"
+                : "message error";
+
+    }
+
+</script>
+
+
+</body>
+
+</html>
